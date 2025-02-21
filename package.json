@@ -1,0 +1,38 @@
+{
+  "name": "chat-system",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/thiagoadsix/chat-system#readme",
+  "bugs": {
+    "url": "https://github.com/thiagoadsix/chat-system/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagoadsix/chat-system.git"
+  },
+  "license": "ISC",
+  "author": "Thiago Andrade Silva",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "dev": "concurrently \"tsc --watch\" \"nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js\"",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "up": "docker-compose up",
+    "down": "docker-compose down",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@fastify/autoload": "^6.1.0",
+    "fastify": "^5.2.1",
+    "nodemon": "^3.1.9"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.6"
+  }
+}

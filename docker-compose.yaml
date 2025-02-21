@@ -1,0 +1,16 @@
+version: '3'
+services:
+  api:
+    image: node:22.14.0
+    container_name: chat-system-container
+    working_dir: /usr/chat-system
+    restart: always
+    ports:
+      - 3000:3000
+      - 9222:9222
+    command: bash -c "npm i && npm run dev"
+    volumes:
+      - ./dist/:/usr/chat-system/dist/
+      - ./src/:/usr/chat-system/src/
+      - ./package.json:/usr/chat-system/package.json
+      - ./tsconfig.json:/usr/chat-system/tsconfig.json
