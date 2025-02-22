@@ -6,7 +6,7 @@ export interface MessageBroker {
 
 export namespace MessageBroker {
   export type Input = {
-    action: "send" | "edit" | "delete" | "reply"
+    action: "send" | "update" | "delete" | "reply"
     message: Partial<ChatMessage>
   };
 }

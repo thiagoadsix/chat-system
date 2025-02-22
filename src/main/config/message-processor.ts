@@ -8,7 +8,7 @@ export async function setupMessageProcessing(rabbitMQClient: RabbitMQClient) {
   const chatMessageRepository = new ChatMessageRepository(dynamoDBClient.getClient());
   const processor = new ChatMessageProcessor(rabbitMQClient, chatMessageRepository);
 
-  const actions = ['send', 'delete', 'edit', 'reply'];
+  const actions = ['send', 'delete', 'update', 'reply'];
 
   for (const action of actions) {
     processor.processMessage(action);
