@@ -18,6 +18,8 @@ export class ReplyMessageUsecase {
       replyTo,
     });
 
+    message.refreshUpdatedAt();
+
     await this.messageBroker.publish({
       action: "reply",
       message,

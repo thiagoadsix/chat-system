@@ -4,16 +4,18 @@ export interface ChatMessageProperties {
   id?: string;
   userId: string;
   content: string;
-  createdAt?: number;
   replyTo?: string;
+  createdAt?: number;
+  updatedAt?: number;
 }
 
 export class ChatMessage implements ChatMessageProperties {
   id: string;
   userId: string;
   content: string;
-  createdAt: number;
   replyTo?: string;
+  createdAt: number;
+  updatedAt?: number;
 
   constructor(
     properties: ChatMessageProperties,
@@ -21,7 +23,11 @@ export class ChatMessage implements ChatMessageProperties {
     this.id = properties.id || uuid();
     this.userId = properties.userId;
     this.content = properties.content;
-    this.createdAt = properties.createdAt || Date.now();
     this.replyTo = properties.replyTo;
+    this.createdAt = properties.createdAt || Date.now();
+  }
+
+  refreshUpdatedAt() {
+    this.updatedAt = Date.now();
   }
 }
