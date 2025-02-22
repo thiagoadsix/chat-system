@@ -1,12 +1,12 @@
-import { DynamoDBClient, PutItemCommand, PutItemCommandInput } from "@aws-sdk/client-dynamodb";
+import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, PutItemCommand, PutItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { marshall } from "@aws-sdk/util-dynamodb";
 
 import env from "@main/config/env";
-import { SaveMessage } from "@domain/gateways/repositories";
+import { DeleteMessage, SaveMessage } from "@domain/gateways/repositories";
 
 import { ChatMessageSchema } from "./schemas/chat-message.schema";
 
-export class ChatMessageRepository implements SaveMessage {
+export class ChatMessageRepository implements SaveMessage, DeleteMessage {
   constructor(
     private readonly client: DynamoDBClient,
   ) {}
@@ -29,5 +29,17 @@ export class ChatMessageRepository implements SaveMessage {
     };
 
     await this.client.send(new PutItemCommand(commandInput))
+  }
+
+  async delete(message: DeleteMessage.Input): Promise<void> {
+    const commandInput: DeleteItemCommandInput = {
+      TableName: env.dynamoDBTableName,
+      Key: marshall({
+        PK: message.userId,
+        SK: message.id,
+      }),
+    };
+
+    await this.client.send(new DeleteItemCommand(commandInput));
   }
 }
