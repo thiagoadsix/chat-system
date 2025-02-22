@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@tests/*": ["__tests__/*"],
+      "@mocks/*": ["__tests__/mocks/*"],
+      "@application/*": ["src/application/*"],
+      "@domain/*": ["src/domain/*"],
+      "@main/*": ["src/main/*"],
+      "@presentation/*": ["src/presentation/*"]
+    },
+    "plugins": [
+      /* Transform paths in output .js files */
+      {
+          "transform": "typescript-transform-paths"
+      },
+      /* Transform paths in output .d.ts files */
+      {
+          "transform": "typescript-transform-paths",
+          "afterDeclarations": true
+      }
+    ]
+  }
+}

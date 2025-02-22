@@ -35,6 +35,13 @@ This project aims to create an API for a chat system with the following features
 
 ### 🏃‍♂️ Running the API
 
+#### Prerequisites:
+
+To run with success, you need to run this command:
+```bash
+npm run init
+```
+
 #### Option 1: Running with Docker
 
 To start the API server using Docker, run the following command:

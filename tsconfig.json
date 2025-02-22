@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "outDir": "./dist",
     "module": "CommonJS",
@@ -6,11 +7,18 @@
     "esModuleInterop": true,
     "allowJs": true,
     "sourceMap": true,
-    "rootDir": "src",
-    "baseUrl": "src",
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "rootDir": "src"
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
 }

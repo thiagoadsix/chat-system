@@ -14,9 +14,10 @@
   "author": "Thiago Andrade Silva",
   "main": "index.js",
   "scripts": {
+    "init": "ts-patch install -s",
     "start": "node dist/main/server.js",
-    "build": "rimraf dist && tsc -p tsconfig-build.json",
-    "dev": "concurrently \"tsc --watch\" \"nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js\"",
+    "build": "rimraf dist && tsc -p tsconfig-build.json && tsc-alias",
+    "dev": "concurrently \"tsc --watch\" \"tsc-alias -w\" \"nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js\"",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "up": "docker-compose up",
     "down": "docker-compose down",
@@ -24,15 +25,24 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.751.0",
+    "@aws-sdk/util-dynamodb": "^3.751.0",
     "@fastify/autoload": "^6.1.0",
+    "amqplib": "^0.10.5",
     "fastify": "^5.2.1",
     "nodemon": "^3.1.9"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.6",
+    "@types/node": "^22.13.5",
     "concurrently": "^9.1.2",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
+    "ts-patch": "^3.3.0",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
+    "typescript-transform-paths": "^3.5.3",
     "vitest": "^3.0.6"
   }
 }

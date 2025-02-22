@@ -1,4 +1,3 @@
-version: '3'
 services:
   api:
     image: node:22.14.0
@@ -14,3 +13,30 @@ services:
       - ./src/:/usr/chat-system/src/
       - ./package.json:/usr/chat-system/package.json
       - ./tsconfig.json:/usr/chat-system/tsconfig.json
+      - ./tsconfig.paths.json:/usr/chat-system/tsconfig.paths.json
+    depends_on:
+      - dynamodb
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=SWQOKODSQALRPCLNMEQG
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - "4566:8000"
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
