@@ -19,6 +19,12 @@ export class ChatMessageProcessor {
         case 'delete':
           await this.chatMessageRepository.delete(message.message);
           break;
+        case 'reply':
+          await this.chatMessageRepository.update({
+            ...message.message,
+            replyTo: message.message.replyTo || '',
+          });
+          break;
         default:
           console.warn(`Unhandled action: ${action}`);
           break;

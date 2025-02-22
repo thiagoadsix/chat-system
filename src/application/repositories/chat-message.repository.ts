@@ -1,12 +1,12 @@
-import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, PutItemCommand, PutItemCommandInput } from "@aws-sdk/client-dynamodb";
+import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, PutItemCommand, PutItemCommandInput, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { marshall } from "@aws-sdk/util-dynamodb";
 
 import env from "@main/config/env";
-import { DeleteMessage, SaveMessage } from "@domain/gateways/repositories";
+import { DeleteMessage, SaveMessage, UpdateMessage } from "@domain/gateways/repositories";
 
 import { ChatMessageSchema } from "./schemas/chat-message.schema";
 
-export class ChatMessageRepository implements SaveMessage, DeleteMessage {
+export class ChatMessageRepository implements SaveMessage, DeleteMessage, UpdateMessage {
   constructor(
     private readonly client: DynamoDBClient,
   ) {}
@@ -44,5 +44,42 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage {
     };
 
     await this.client.send(new DeleteItemCommand(commandInput));
+  }
+
+  async update(message: UpdateMessage.Input): Promise<void> {
+    const { id, userId, ...updateFields } = message;
+
+    const updateExpressions: string[] = [];
+    const expressionValues: Record<string, any> = {};
+    const expressionNames: Record<string, string> = {};
+
+    Object.entries(updateFields).forEach(([key, value]) => {
+      if (value !== undefined) {
+        const attrName = `#${key}`;
+        const attrValue = `:${key}`;
+
+        updateExpressions.push(`${attrName} = ${attrValue}`);
+        expressionNames[attrName] = key;
+        expressionValues[attrValue] = value;
+      }
+    });
+
+    const updateExpression = `SET ${updateExpressions.join(", ")}`;
+
+    await this.client.send(
+      new UpdateItemCommand({
+        TableName: env.dynamoDBTableName,
+        Key: marshall({
+          PK: ChatMessageSchema.buildPK(userId),
+          SK: ChatMessageSchema.buildSK(id),
+        }, {
+          removeUndefinedValues: true,
+          convertClassInstanceToMap: true
+        }),
+        UpdateExpression: updateExpression,
+        ExpressionAttributeNames: expressionNames,
+        ExpressionAttributeValues: marshall(expressionValues, { removeUndefinedValues: true }),
+      })
+    );
   }
 }
