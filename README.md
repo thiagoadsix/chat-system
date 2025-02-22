@@ -5,7 +5,7 @@ This project aims to create an API for a chat system with the following features
 ## 📋 Features
 
 - [x] 📨 Send messages
-- [ ] 🗑️ Delete messages
+- [x] 🗑️ Delete messages
 - [ ] 📝 Edit messages
 - [ ] ↩️ Reply to messages
 
