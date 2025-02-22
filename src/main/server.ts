@@ -11,13 +11,13 @@ const main = async () => {
 
     await setupMessageProcessing(rabbitMQClient);
 
-    app.log.info('RabbitMQ connected')
+    app.log.info('RabbitMQ connected and message processing set up');
 
-    await app.listen({ port: env.port, host: '0.0.0.0' })
+    await app.listen({ port: env.port, host: '0.0.0.0' });
   } catch (err) {
-    app.log.error(err)
-    process.exit(1)
+    app.log.error(err);
+    process.exit(1);
   }
-}
+};
 
-main()
+main();

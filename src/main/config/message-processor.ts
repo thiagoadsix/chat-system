@@ -6,10 +6,11 @@ import { ChatMessageProcessor } from '@application/services/chat-message.process
 export async function setupMessageProcessing(rabbitMQClient: RabbitMQClient) {
   const dynamoDBClient = new DynamoDBClient();
   const chatMessageRepository = new ChatMessageRepository(dynamoDBClient.getClient());
-  const chatMessageProcessor = new ChatMessageProcessor(rabbitMQClient, chatMessageRepository);
+  const processor = new ChatMessageProcessor(rabbitMQClient, chatMessageRepository);
 
-  await chatMessageProcessor.processMessage('send');
-  await chatMessageProcessor.processMessage('edit');
-  await chatMessageProcessor.processMessage('delete');
-  await chatMessageProcessor.processMessage('reply');
+  const actions = ['send', 'delete', 'edit', 'reply'];
+
+  for (const action of actions) {
+    processor.processMessage(action);
+  }
 }

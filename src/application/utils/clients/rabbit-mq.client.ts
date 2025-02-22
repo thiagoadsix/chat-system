@@ -1,10 +1,9 @@
 import amqp, { Channel, Connection, ConsumeMessage } from 'amqplib';
 
-const QUEUE = 'chat_messages';
-
 export class RabbitMQClient {
   private connection?: Connection;
   private channel?: Channel;
+  private readonly exchange = 'chat_messages_exchange';
 
   async connect(): Promise<void> {
     if (!this.connection) {
@@ -15,33 +14,32 @@ export class RabbitMQClient {
         password: 'admin',
       });
       this.channel = await this.connection.createChannel();
-      await this.channel.assertQueue(QUEUE, { durable: true });
+
+      await this.channel.assertExchange(this.exchange, 'direct', { durable: true });
     }
   }
 
-  async publishChatEvent<T>(event: T): Promise<void> {
+  async publishChatEvent<T extends { action: string }>(event: T): Promise<void> {
     if (!this.channel) {
       await this.connect();
     }
     const msgBuffer = Buffer.from(JSON.stringify(event));
-    this.channel!.sendToQueue(QUEUE, msgBuffer, { persistent: true });
+    this.channel!.publish(this.exchange, event.action, msgBuffer, { persistent: true });
   }
 
-  async consumeChatEvent(action: string, callback: (msg: any) => void): Promise<void> {
+  async consumeChatEvent(queue: string, action: string, callback: (msg: any) => void): Promise<void> {
     if (!this.channel) {
       await this.connect();
     }
+    await this.channel!.assertQueue(queue, { durable: true });
+    await this.channel!.bindQueue(queue, this.exchange, action);
 
-    await this.channel?.consume(
-      QUEUE,
+    await this.channel!.consume(
+      queue,
       (msg: ConsumeMessage | null) => {
         if (msg) {
           const content = JSON.parse(msg.content.toString());
-
-          if (content.action === action) {
-            callback(content.message);
-          }
-
+          callback(content);
           this.channel!.ack(msg);
         }
       },

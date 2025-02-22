@@ -8,11 +8,19 @@ export class ChatMessageProcessor {
     private readonly chatMessageRepository: ChatMessageRepository
   ) {}
 
-  async processMessage(action: string) {
-    await this.rabbitMQClient.consumeChatEvent(action, async (message: ChatMessage) => {
-      switch(action) {
+  async processMessage(action: string): Promise<void> {
+    const queue = `chat_messages_${action}`;
+
+    await this.rabbitMQClient.consumeChatEvent(queue, action, async (message: {action: string, message: ChatMessage}) => {
+      switch (action) {
         case 'send':
-          await this.chatMessageRepository.save(message);
+          await this.chatMessageRepository.save(message.message);
+          break;
+        case 'delete':
+          await this.chatMessageRepository.delete(message.message);
+          break;
+        default:
+          console.warn(`Unhandled action: ${action}`);
           break;
       }
     });

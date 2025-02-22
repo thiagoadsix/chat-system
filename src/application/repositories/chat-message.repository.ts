@@ -35,8 +35,11 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage {
     const commandInput: DeleteItemCommandInput = {
       TableName: env.dynamoDBTableName,
       Key: marshall({
-        PK: message.userId,
-        SK: message.id,
+        PK: ChatMessageSchema.buildPK(message.userId),
+        SK: ChatMessageSchema.buildSK(message.id),
+      }, {
+        removeUndefinedValues: true,
+        convertClassInstanceToMap: true
       }),
     };
 
