@@ -25,6 +25,9 @@ export class ChatMessageProcessor {
             replyTo: message.message.replyTo || '',
           });
           break;
+        case 'update':
+          await this.chatMessageRepository.update(message.message);
+          break;
         default:
           console.warn(`Unhandled action: ${action}`);
           break;

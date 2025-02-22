@@ -7,6 +7,6 @@ export namespace UpdateMessage {
     messageId: string;
     userId: string;
     content: string;
-    replyTo: string;
+    replyTo?: string;
   };
 }
