@@ -7,6 +7,6 @@ export interface MessageBroker {
 export namespace MessageBroker {
   export type Input = {
     action: "send" | "edit" | "delete" | "reply"
-    message: ChatMessage
+    message: Partial<ChatMessage>
   };
 }
