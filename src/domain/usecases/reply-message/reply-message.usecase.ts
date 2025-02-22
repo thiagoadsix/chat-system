@@ -9,10 +9,10 @@ export class ReplyMessageUsecase {
   ) {}
 
   async execute(input: ReplyMessageRequest): Promise<void> {
-    const { id, userId, content, replyTo } = input;
+    const { messageId, userId, content, replyTo } = input;
 
     const message = new ChatMessage({
-      id,
+      messageId,
       userId,
       content,
       replyTo,

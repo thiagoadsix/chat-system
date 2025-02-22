@@ -4,7 +4,7 @@ export interface DeleteMessage {
 
 export namespace DeleteMessage {
   export type Input = {
-    id: string;
+    messageId: string;
     userId: string;
   };
 }

@@ -13,7 +13,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
 
   async save(message: SaveMessage.Input): Promise<void> {
     const chatMessageSchema = new ChatMessageSchema({
-      id: message.id,
+      messageId: message.messageId,
       userId: message.userId,
       content: message.content,
       replyTo: message.replyTo,
@@ -36,7 +36,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
       TableName: env.dynamoDBTableName,
       Key: marshall({
         PK: ChatMessageSchema.buildPK(message.userId),
-        SK: ChatMessageSchema.buildSK(message.id),
+        SK: ChatMessageSchema.buildSK(message.messageId),
       }, {
         removeUndefinedValues: true,
         convertClassInstanceToMap: true
@@ -47,7 +47,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
   }
 
   async update(message: UpdateMessage.Input): Promise<void> {
-    const { id, userId, ...updateFields } = message;
+    const { messageId, userId, ...updateFields } = message;
 
     const updateExpressions: string[] = [];
     const expressionValues: Record<string, any> = {};
@@ -71,7 +71,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
         TableName: env.dynamoDBTableName,
         Key: marshall({
           PK: ChatMessageSchema.buildPK(userId),
-          SK: ChatMessageSchema.buildSK(id),
+          SK: ChatMessageSchema.buildSK(messageId),
         }, {
           removeUndefinedValues: true,
           convertClassInstanceToMap: true

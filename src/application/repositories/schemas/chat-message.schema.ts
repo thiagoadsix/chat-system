@@ -1,7 +1,7 @@
 import { ChatMessage } from "@domain/entities/chat-message.entity";
 
 export interface ChatMessageSchemaProperties {
-  id: string;
+  messageId: string;
   userId: string;
   content: string;
   replyTo?: string;
@@ -13,17 +13,17 @@ export class ChatMessageSchema
 {
   /** CHAT#{userId} */
   readonly PK: string;
-  /** MESSAGE#{id} */
+  /** MESSAGE#{messageId} */
   readonly SK: string;
 
-  id: string;
+  messageId: string;
   userId: string;
   content: string;
   replyTo?: string;
   createdAt: number;
 
   constructor(properties: ChatMessageSchemaProperties) {
-    this.id = properties.id;
+    this.messageId = properties.messageId;
     this.userId = properties.userId;
     this.content = properties.content;
     this.replyTo = properties.replyTo;
@@ -33,13 +33,13 @@ export class ChatMessageSchema
       this.userId
     );
     this.SK = ChatMessageSchema.buildSK(
-      this.id
+      this.messageId
     );
   }
 
   toEntity(): ChatMessage {
     return new ChatMessage({
-      id: this.id,
+      messageId: this.messageId,
       userId: this.userId,
       content: this.content,
       replyTo: this.replyTo,
@@ -51,7 +51,7 @@ export class ChatMessageSchema
     entity: ChatMessage
   ): ChatMessageSchema {
     return new ChatMessageSchema({
-      id: entity.id,
+      messageId: entity.messageId,
       userId: entity.userId,
       content: entity.content,
       replyTo: entity.replyTo,
@@ -63,7 +63,7 @@ export class ChatMessageSchema
     item: Record<string, any>
   ): ChatMessageSchema {
     return new ChatMessageSchema({
-      id: item.id,
+      messageId: item.messageId,
       userId: item.userId,
       content: item.content,
       replyTo: item.replyTo,
@@ -75,7 +75,7 @@ export class ChatMessageSchema
     return `CHAT#${userId}`;
   }
 
-  static buildSK(id: string): string {
-    return `MESSAGE#${id}`;
+  static buildSK(messageId: string): string {
+    return `MESSAGE#${messageId}`;
   }
 }

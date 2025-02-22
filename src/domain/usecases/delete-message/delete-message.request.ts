@@ -1,4 +1,4 @@
 export type DeleteMessageRequest = {
-  id: string
-  userId: string
+  messageId: string;
+  userId: string;
 }

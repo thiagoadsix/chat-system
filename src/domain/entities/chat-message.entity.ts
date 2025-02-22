@@ -1,7 +1,7 @@
 import { randomUUID as uuid } from 'crypto';
 
 export interface ChatMessageProperties {
-  id?: string;
+  messageId?: string;
   userId: string;
   content: string;
   replyTo?: string;
@@ -10,7 +10,7 @@ export interface ChatMessageProperties {
 }
 
 export class ChatMessage implements ChatMessageProperties {
-  id: string;
+  messageId: string;
   userId: string;
   content: string;
   replyTo?: string;
@@ -20,7 +20,7 @@ export class ChatMessage implements ChatMessageProperties {
   constructor(
     properties: ChatMessageProperties,
   ) {
-    this.id = properties.id || uuid();
+    this.messageId = properties.messageId || uuid();
     this.userId = properties.userId;
     this.content = properties.content;
     this.replyTo = properties.replyTo;

@@ -1,5 +1,5 @@
 export type ReplyMessageRequest = {
-  id: string;
+  messageId: string;
   userId: string;
   content: string;
   replyTo: string;

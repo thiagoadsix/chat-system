@@ -7,10 +7,10 @@ export class DeleteMessageController implements Controller {
   constructor(private readonly deleteMessageUsecase: DeleteMessageUsecase) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { id } = httpRequest.params;
+    const { messageId } = httpRequest.params;
     const { userId } = httpRequest.body;
 
-    const result = await this.deleteMessageUsecase.execute({ id, userId });
+    const result = await this.deleteMessageUsecase.execute({ messageId, userId });
 
     return ok(result);
   }

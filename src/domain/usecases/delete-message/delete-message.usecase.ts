@@ -8,12 +8,12 @@ export class DeleteMessageUsecase {
   ) {}
 
   async execute(input: DeleteMessageRequest): Promise<void> {
-    const { id, userId } = input;
+    const { messageId, userId } = input;
 
     await this.messageBroker.publish({
       action: "delete",
       message: {
-        id,
+        messageId,
         userId
       },
     });

@@ -7,10 +7,10 @@ export class ReplyMessageController implements Controller {
   constructor(private readonly replyMessageUsecase: ReplyMessageUsecase) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { id } = httpRequest.params;
+    const { messageId } = httpRequest.params;
     const { userId, content, replyTo } = httpRequest.body;
 
-    const result = await this.replyMessageUsecase.execute({ id, userId, content, replyTo });
+    const result = await this.replyMessageUsecase.execute({ messageId, userId, content, replyTo });
 
     return ok(result);
   }
