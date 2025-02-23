@@ -1,6 +1,6 @@
 import { Message } from "@domain/entities/message.entity";
 import { MessageBroker } from "@domain/gateways/brokers";
-import { FindByIdMessage } from "@domain/gateways/repositories";
+import { FindByIdMessage } from "@domain/gateways/repositories/message";
 
 import type { UpdateMessageRequest } from "./update-message.request";
 
