@@ -1,15 +1,37 @@
-import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, PutItemCommand, PutItemCommandInput, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
-import { marshall } from "@aws-sdk/util-dynamodb";
+import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, GetItemCommand, GetItemCommandInput, PutItemCommand, PutItemCommandInput, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
+import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
 import env from "@main/config/env";
-import { DeleteMessage, SaveMessage, UpdateMessage } from "@domain/gateways/repositories";
+import { DeleteMessage, FindByIdMessage, SaveMessage, UpdateMessage } from "@domain/gateways/repositories";
 
 import { MessageSchema } from "./schemas/message.schema";
+import { Message } from "@domain/entities";
 
-export class ChatMessageRepository implements SaveMessage, DeleteMessage, UpdateMessage {
+export class ChatMessageRepository implements SaveMessage, DeleteMessage, UpdateMessage, FindByIdMessage {
   constructor(
     private readonly client: DynamoDBClient,
   ) {}
+
+  async findById(message: FindByIdMessage.Input): Promise<Message | null> {
+    const commandInput: GetItemCommandInput = {
+      TableName: env.dynamoDBTableName,
+      Key: marshall({
+        PK: MessageSchema.buildPK(message.chatId),
+        SK: MessageSchema.buildSK(message.id),
+      }, {
+        removeUndefinedValues: true,
+        convertClassInstanceToMap: true
+      }),
+    };
+
+    const result = await this.client.send(new GetItemCommand(commandInput));
+
+    if (!result.Item) {
+      return null;
+    }
+
+    return MessageSchema.fromUnmarshalledItem(unmarshall(result.Item)).toEntity();
+  }
 
   async save(message: SaveMessage.Input): Promise<void> {
     const messageSchema = new MessageSchema({
@@ -19,6 +41,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
       content: message.content,
       replyTo: message.replyTo,
       createdAt: message.createdAt,
+      edited: message.edited
     });
 
     const commandInput: PutItemCommandInput = {
@@ -48,7 +71,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
   }
 
   async update(message: UpdateMessage.Input): Promise<void> {
-    const { id, userId, ...updateFields } = message;
+    const { id, chatId, ...updateFields } = message;
 
     const updateExpressions: string[] = [];
     const expressionValues: Record<string, any> = {};
@@ -71,7 +94,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
       new UpdateItemCommand({
         TableName: env.dynamoDBTableName,
         Key: marshall({
-          PK: MessageSchema.buildPK(userId),
+          PK: MessageSchema.buildPK(chatId),
           SK: MessageSchema.buildSK(id),
         }, {
           removeUndefinedValues: true,

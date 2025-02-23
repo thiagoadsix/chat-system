@@ -7,6 +7,7 @@ export interface MessageSchemaProperties {
   content: string;
   replyTo?: string;
   createdAt: number;
+  edited?: boolean;
 }
 
 export class MessageSchema
@@ -28,6 +29,7 @@ export class MessageSchema
   content: string;
   replyTo?: string;
   createdAt: number;
+  edited?: boolean;
 
   constructor(properties: MessageSchemaProperties) {
     this.id = properties.id;
@@ -36,6 +38,7 @@ export class MessageSchema
     this.content = properties.content;
     this.replyTo = properties.replyTo;
     this.createdAt = properties.createdAt;
+    this.edited = properties.edited;
 
     this.PK = MessageSchema.buildPK(
       this.chatId
@@ -59,7 +62,8 @@ export class MessageSchema
       sender: this.sender,
       content: this.content,
       replyTo: this.replyTo,
-      createdAt: this.createdAt
+      createdAt: this.createdAt,
+      edited: this.edited
     });
   }
 
@@ -72,7 +76,8 @@ export class MessageSchema
       sender: entity.sender,
       content: entity.content,
       replyTo: entity.replyTo,
-      createdAt: entity.createdAt
+      createdAt: entity.createdAt,
+      edited: entity.edited
     });
   }
 
@@ -85,7 +90,8 @@ export class MessageSchema
       sender: item.sender,
       content: item.content,
       replyTo: item.replyTo,
-      createdAt: item.createdAt
+      createdAt: item.createdAt,
+      edited: item.edited
     });
   }
 

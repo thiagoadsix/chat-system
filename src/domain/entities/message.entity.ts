@@ -35,4 +35,8 @@ export class Message implements MessageProperties {
   refreshUpdatedAt() {
     this.updatedAt = Date.now();
   }
+
+  setEdited() {
+    this.edited = true;
+  }
 }

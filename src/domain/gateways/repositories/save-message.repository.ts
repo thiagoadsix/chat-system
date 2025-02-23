@@ -1,9 +1,9 @@
-import type { ChatMessage } from "@domain/entities/chat-message.entity";
+import type { Message } from "@domain/entities";
 
 export interface SaveMessage {
   save(message: SaveMessage.Input): Promise<void>;
 }
 
 export namespace SaveMessage {
-  export type Input = ChatMessage;
+  export type Input = Message;
 }

@@ -23,14 +23,14 @@ export class ChatMessageProcessor {
             sender: message.message.sender,
           });
           break;
+        case 'update':
+          await this.chatMessageRepository.update(message.message);
+          break;
         case 'reply':
           await this.chatMessageRepository.update({
             ...message.message,
             replyTo: message.message.replyTo || '',
           });
-          break;
-        case 'update':
-          await this.chatMessageRepository.update(message.message);
           break;
         default:
           console.warn(`Unhandled action: ${action}`);

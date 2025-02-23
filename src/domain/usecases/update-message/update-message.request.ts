@@ -1,5 +1,6 @@
 export type UpdateMessageRequest = {
-  messageId: string;
-  userId: string;
+  id: number;
+  chatId: string;
+  sender: string;
   content: string;
 }
