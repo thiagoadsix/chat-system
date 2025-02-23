@@ -7,9 +7,10 @@ export class SendMessageController implements Controller {
   constructor(private readonly sendMessageUsecase: SendMessageUsecase) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { content, userId } = httpRequest.body;
+    const { chatId } = httpRequest.params;
+    const { content, sender } = httpRequest.body;
 
-    const result = await this.sendMessageUsecase.execute({ content, userId });
+    const result = await this.sendMessageUsecase.execute({ content, sender, chatId });
 
     return ok(result);
   }

@@ -1,0 +1,107 @@
+import { Message } from "@domain/entities";
+
+export interface MessageSchemaProperties {
+  id: number;
+  chatId: string;
+  sender: string;
+  content: string;
+  replyTo?: string;
+  createdAt: number;
+}
+
+export class MessageSchema
+  implements MessageSchemaProperties
+{
+  /** CHAT#{chatId} */
+  readonly PK: string;
+  /** MESSAGE#{id} */
+  readonly SK: string;
+
+  /** USER#{sender} */
+  readonly GS1PK: string;
+  /** CHAT#{id} */
+  readonly GS1SK: string;
+
+  id: number;
+  chatId: string;
+  sender: string;
+  content: string;
+  replyTo?: string;
+  createdAt: number;
+
+  constructor(properties: MessageSchemaProperties) {
+    this.id = properties.id;
+    this.chatId = properties.chatId;
+    this.sender = properties.sender;
+    this.content = properties.content;
+    this.replyTo = properties.replyTo;
+    this.createdAt = properties.createdAt;
+
+    this.PK = MessageSchema.buildPK(
+      this.chatId
+    );
+    this.SK = MessageSchema.buildSK(
+      this.id
+    );
+
+    this.GS1PK = MessageSchema.buildGS1PK(
+      this.sender
+    );
+    this.GS1SK = MessageSchema.buildGS1SK(
+      this.chatId
+    )
+  }
+
+  toEntity(): Message {
+    return new Message({
+      id: this.id,
+      chatId: this.chatId,
+      sender: this.sender,
+      content: this.content,
+      replyTo: this.replyTo,
+      createdAt: this.createdAt
+    });
+  }
+
+  static fromEntity(
+    entity: Message
+  ): MessageSchema {
+    return new MessageSchema({
+      id: entity.id,
+      chatId: entity.chatId,
+      sender: entity.sender,
+      content: entity.content,
+      replyTo: entity.replyTo,
+      createdAt: entity.createdAt
+    });
+  }
+
+  static fromUnmarshalledItem(
+    item: Record<string, any>
+  ): MessageSchema {
+    return new MessageSchema({
+      id: item.id,
+      chatId: item.chatId,
+      sender: item.sender,
+      content: item.content,
+      replyTo: item.replyTo,
+      createdAt: item.createdAt
+    });
+  }
+
+  static buildPK(userId: string): string {
+    return `CHAT#${userId}`;
+  }
+
+  static buildSK(id: number): string {
+    return `MESSAGE#${id}`;
+  }
+
+  static buildGS1PK(userId: string): string {
+    return `USER#${userId}`;
+  }
+
+  static buildGS1SK(chatId: string): string {
+    return `CHAT#${chatId}`;
+  }
+}

@@ -1,5 +1,5 @@
 export type SendMessageRequest = {
-  userId: string;
+  sender: string;
   content: string;
-  replyTo?: string;
+  chatId: string;
 }

@@ -1,6 +1,6 @@
 import { RabbitMQClient } from "@application/utils/clients/rabbit-mq.client";
 import { ChatMessageRepository } from "@application/repositories/chat-message.repository";
-import { ChatMessage } from "@domain/entities/chat-message.entity";
+import { Message } from "@domain/entities";
 
 export class ChatMessageProcessor {
   constructor(
@@ -11,7 +11,7 @@ export class ChatMessageProcessor {
   async processMessage(action: string): Promise<void> {
     const queue = `chat_messages_${action}`;
 
-    await this.rabbitMQClient.consumeChatEvent(queue, action, async (message: {action: string, message: ChatMessage}) => {
+    await this.rabbitMQClient.consumeChatEvent(queue, action, async (message: {action: string, message: Message}) => {
       switch (action) {
         case 'send':
           await this.chatMessageRepository.save(message.message);

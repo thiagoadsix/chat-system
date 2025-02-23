@@ -1,4 +1,4 @@
-import { ChatMessage } from "@domain/entities/chat-message.entity";
+import { Message } from "@domain/entities";
 import { MessageBroker } from "@domain/gateways/brokers";
 
 import type { SendMessageRequest } from "./send-message.request";
@@ -9,12 +9,12 @@ export class SendMessageUsecase {
   ) {}
 
   async execute(input: SendMessageRequest): Promise<void> {
-    const { userId, content, replyTo } = input;
+    const { sender, content, chatId } = input;
 
-    const message = new ChatMessage({
-      userId,
+    const message = new Message({
       content,
-      replyTo,
+      sender,
+      chatId
     });
 
     await this.messageBroker.publish({

@@ -4,7 +4,7 @@ export interface UpdateMessage {
 
 export namespace UpdateMessage {
   export type Input = {
-    messageId: string;
+    id: number;
     userId: string;
     content: string;
     replyTo?: string;

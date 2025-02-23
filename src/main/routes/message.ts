@@ -7,7 +7,7 @@ import { replyMessageControllerFactory } from '@application/factories/controller
 import { updateMessageControllerFactory } from '@application/factories/controllers/update-message/update-message.controller.factory'
 
 export default async function (app: FastifyInstance) {
-  app.post('/messages', adaptRoute(sendMessageControllerFactory()))
+  app.post('/messages/:chatId/chat', adaptRoute(sendMessageControllerFactory()))
   app.delete('/messages/:id', adaptRoute(deleteMessageControllerFactory()))
   app.post('/messages/:id/replies', adaptRoute(replyMessageControllerFactory()))
   app.put('/messages/:id', adaptRoute(updateMessageControllerFactory()))
