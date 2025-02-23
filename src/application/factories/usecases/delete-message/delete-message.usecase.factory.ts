@@ -1,4 +1,4 @@
-import { DeleteMessageUsecase } from "@domain/usecases/delete-message/delete-message.usecase";
+import { DeleteMessageUsecase } from "@domain/usecases/message";
 import { RabbitMQBroker } from "@application/services/brokers/rabbit-mq.broker";
 import { RabbitMQClient } from "@application/utils/clients/rabbit-mq.client";
 

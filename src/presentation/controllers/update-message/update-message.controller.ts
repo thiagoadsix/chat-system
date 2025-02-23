@@ -1,4 +1,4 @@
-import { UpdateMessageUsecase } from "@domain/usecases/update-message/update-message.usecase";
+import { UpdateMessageUsecase } from "@domain/usecases/message";
 
 import { Controller, HttpRequest, HttpResponse } from "@presentation/protocols";
 import { ok } from "@presentation/helpers";

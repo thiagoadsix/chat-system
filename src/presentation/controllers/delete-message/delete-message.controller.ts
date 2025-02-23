@@ -1,4 +1,4 @@
-import { DeleteMessageUsecase } from "@domain/usecases/delete-message/delete-message.usecase";
+import { DeleteMessageUsecase } from "@domain/usecases/message";
 
 import { Controller, HttpRequest, HttpResponse } from "@presentation/protocols";
 import { ok } from "@presentation/helpers";
