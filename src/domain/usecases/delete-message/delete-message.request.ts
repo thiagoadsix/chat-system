@@ -1,4 +1,5 @@
 export type DeleteMessageRequest = {
-  messageId: string;
-  userId: string;
+  id: number;
+  chatId: string;
+  sender: string;
 }

@@ -17,7 +17,11 @@ export class ChatMessageProcessor {
           await this.chatMessageRepository.save(message.message);
           break;
         case 'delete':
-          await this.chatMessageRepository.delete(message.message);
+          await this.chatMessageRepository.delete({
+            id: message.message.id,
+            chatId: message.message.chatId,
+            sender: message.message.sender,
+          });
           break;
         case 'reply':
           await this.chatMessageRepository.update({

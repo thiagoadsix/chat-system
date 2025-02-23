@@ -5,6 +5,7 @@ export interface DeleteMessage {
 export namespace DeleteMessage {
   export type Input = {
     id: number;
-    userId: string;
+    chatId: string;
+    sender: string;
   };
 }
