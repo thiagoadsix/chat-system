@@ -34,15 +34,7 @@ export class ChatMessageRepository implements SaveMessage, DeleteMessage, Update
   }
 
   async save(message: SaveMessage.Input): Promise<void> {
-    const messageSchema = new MessageSchema({
-      id: message.id,
-      chatId: message.chatId,
-      sender: message.sender,
-      content: message.content,
-      replyTo: message.replyTo,
-      createdAt: message.createdAt,
-      edited: message.edited
-    });
+    const messageSchema = new MessageSchema(message);
 
     const commandInput: PutItemCommandInput = {
       TableName: env.dynamoDBTableName,
