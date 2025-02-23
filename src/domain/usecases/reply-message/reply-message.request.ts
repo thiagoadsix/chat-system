@@ -1,6 +1,7 @@
 export type ReplyMessageRequest = {
-  messageId: string;
-  userId: string;
+  id: number;
+  chatId: string;
   content: string;
   replyTo: string;
+  sender: string;
 };

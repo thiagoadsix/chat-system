@@ -5,8 +5,8 @@ export interface MessageSchemaProperties {
   chatId: string;
   sender: string;
   content: string;
-  replyTo?: string;
   createdAt: number;
+  replyTo?: number;
   edited?: boolean;
 }
 
@@ -27,7 +27,7 @@ export class MessageSchema
   chatId: string;
   sender: string;
   content: string;
-  replyTo?: string;
+  replyTo?: number;
   createdAt: number;
   edited?: boolean;
 

@@ -27,10 +27,7 @@ export class ChatMessageProcessor {
           await this.chatMessageRepository.update(message.message);
           break;
         case 'reply':
-          await this.chatMessageRepository.update({
-            ...message.message,
-            replyTo: message.message.replyTo || '',
-          });
+          await this.chatMessageRepository.save(message.message);
           break;
         default:
           console.warn(`Unhandled action: ${action}`);

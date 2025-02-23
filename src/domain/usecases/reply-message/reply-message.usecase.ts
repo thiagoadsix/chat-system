@@ -1,4 +1,4 @@
-import { ChatMessage } from "@domain/entities/chat-message.entity";
+import { Message } from "@domain/entities";
 import { MessageBroker } from "@domain/gateways/brokers";
 
 import type { ReplyMessageRequest } from "./reply-message.request";
@@ -9,13 +9,13 @@ export class ReplyMessageUsecase {
   ) {}
 
   async execute(input: ReplyMessageRequest): Promise<void> {
-    const { messageId, userId, content, replyTo } = input;
+    const { id, chatId, content, sender } = input;
 
-    const message = new ChatMessage({
-      messageId,
-      userId,
+    const message = new Message({
+      replyTo: id,
+      chatId,
+      sender,
       content,
-      replyTo,
     });
 
     message.refreshUpdatedAt();

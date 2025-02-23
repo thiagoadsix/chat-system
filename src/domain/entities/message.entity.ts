@@ -4,7 +4,7 @@ export interface MessageProperties {
   sender: string;
   content: string;
   edited?: boolean;
-  replyTo?: string;
+  replyTo?: number;
   createdAt?: number;
   updatedAt?: number;
 }
@@ -15,7 +15,7 @@ export class Message implements MessageProperties {
   sender: string;
   content: string;
   edited?: boolean;
-  replyTo?: string;
+  replyTo?: number;
   createdAt: number;
   updatedAt?: number;
 
