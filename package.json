@@ -31,6 +31,7 @@
     "@aws-sdk/client-dynamodb": "^3.751.0",
     "@aws-sdk/util-dynamodb": "^3.751.0",
     "@fastify/autoload": "^6.1.0",
+    "@fastify/jwt": "^9.0.4",
     "amqplib": "^0.10.5",
     "fastify": "^5.2.1",
     "nodemon": "^3.1.9",
