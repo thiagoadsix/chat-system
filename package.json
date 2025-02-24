@@ -22,7 +22,10 @@
     "up": "docker-compose up",
     "down": "docker-compose down",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:cov": "yarn test --coverage=true --run",
+    "test:ci": "yarn test --reporter=json --coverage --outputFile=report.json --run --reporter=verbose",
+    "test:dev": "yarn test --watch",
+    "test:ui": "yarn test --ui --watch"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.751.0",
@@ -30,11 +33,13 @@
     "@fastify/autoload": "^6.1.0",
     "amqplib": "^0.10.5",
     "fastify": "^5.2.1",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.6",
     "@types/node": "^22.13.5",
+    "@vitest/coverage-v8": "^3.0.6",
     "concurrently": "^9.1.2",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
