@@ -5,12 +5,12 @@
     "module": "CommonJS",
     "target": "ES2022",
     "esModuleInterop": true,
-    "allowJs": true,
     "sourceMap": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "rootDir": "src"
+    "types": [
+      "vitest/globals"
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"],

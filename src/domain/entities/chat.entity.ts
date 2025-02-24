@@ -2,7 +2,7 @@ import { randomUUID as uuid } from 'crypto';
 
 export interface ChatProperties {
   id?: string;
-  userId: string;
+  userId?: string;
   participants: string[];
   lastMessage?: string;
   lastMessageDate?: number;
@@ -12,7 +12,7 @@ export interface ChatProperties {
 
 export class Chat implements ChatProperties {
   id: string;
-  userId: string;
+  userId?: string;
   participants: string[];
   lastMessage?: string;
   lastMessageDate?: number;
