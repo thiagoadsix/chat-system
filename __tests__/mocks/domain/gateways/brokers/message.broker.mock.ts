@@ -6,6 +6,6 @@ type MessageBrokerMock = {
   [K in keyof MessageBroker]: Mock;
 }
 
-export const sendMessageMockBroker: MessageBrokerMock = {
+export const messageMockBroker: MessageBrokerMock = {
   publish: vi.fn(),
 }
