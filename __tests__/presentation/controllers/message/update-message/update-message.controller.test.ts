@@ -19,8 +19,15 @@ describe("ReplyMessageController", () => {
     it("should return a 200 status code", async () => {
       const httpRequest = {
         params: { messageId: "1", chatId: "1" },
-        body: { sender: "1", content: "test", replyTo: "2" },
+        body: { sender: "1", content: "test updated" },
       };
+
+      messageMockRepository.findById.mockResolvedValue({
+        id: 1,
+        chatId: "1",
+        sender: "1",
+        content: "test",
+      });
 
       const result = await sut.handle(httpRequest);
 
