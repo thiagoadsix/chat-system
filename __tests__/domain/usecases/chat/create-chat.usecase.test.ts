@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 
-import { saveChatMockRepository } from "@tests/mocks/domain/gateways/repositories/chat.repository.mock";
+import { chatMockRepository } from "@tests/mocks/domain/gateways/repositories/chat.repository.mock";
 
 import { CreateChatUsecase } from "@domain/usecases/chat/create-chat/create-chat.usecase";
 
@@ -8,7 +8,7 @@ describe("CreateChatUsecase", () => {
   let sut: CreateChatUsecase;
 
   beforeEach(() => {
-    sut = new CreateChatUsecase(saveChatMockRepository);
+    sut = new CreateChatUsecase(chatMockRepository);
     vi.clearAllMocks();
   });
 
@@ -22,7 +22,7 @@ describe("CreateChatUsecase", () => {
 
       expect(response).toBeDefined();
       expect(response.id).toBeDefined();
-      expect(saveChatMockRepository.save).toHaveBeenCalled();
+      expect(chatMockRepository.save).toHaveBeenCalled();
     });
   });
 });

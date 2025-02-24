@@ -4,13 +4,13 @@ import { CreateChatUsecase } from "@domain/usecases/chat";
 
 import { CreateChatController } from "@presentation/controllers/chat/create-chat/create-chat.controller";
 
-import { saveChatMockRepository } from "@tests/mocks/domain/gateways/repositories/chat.repository.mock";
+import { chatMockRepository } from "@tests/mocks/domain/gateways/repositories/chat.repository.mock";
 
 describe("CreateChatController", () => {
   let sut: CreateChatController;
 
   beforeEach(() => {
-    const createChatUsecase = new CreateChatUsecase(saveChatMockRepository);
+    const createChatUsecase = new CreateChatUsecase(chatMockRepository);
     sut = new CreateChatController(createChatUsecase);
   });
 
