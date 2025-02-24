@@ -17,9 +17,14 @@ export class ChatSchema {
   readonly SK: string;
 
   /** USER_ID#userId */
-  readonly GS1PK: string;
+  readonly GSI1PK: string;
   /** LAST_MESSAGE_DATE#lastMessageDate */
-  readonly GS1SK: string;
+  readonly GSI1SK: string;
+
+  /** CHAT#id */
+  readonly GSI2PK: string;
+  /** LAST_MESSAGE_DATE#lastMessageDate */
+  readonly GSI2SK: string;
 
   id: string;
   userId: string;
@@ -40,8 +45,10 @@ export class ChatSchema {
 
     this.PK = ChatSchema.buildPK(properties.userId);
     this.SK = ChatSchema.buildSK(properties.id);
-    this.GS1PK = ChatSchema.buildGS1PK(properties.userId);
-    this.GS1SK = ChatSchema.buildGS1SK(properties.lastMessageDate || 0);
+    this.GSI1PK = ChatSchema.buildGSI1PK(properties.userId);
+    this.GSI1SK = ChatSchema.buildGSI1SK(properties.lastMessageDate || 0);
+    this.GSI2PK = ChatSchema.buildGSI2PK(properties.id);
+    this.GSI2SK = ChatSchema.buildGSI2SK(properties.lastMessageDate || 0);
   }
 
   static buildPK(participantId: string): string {
@@ -52,11 +59,59 @@ export class ChatSchema {
     return `CHAT#${id}`;
   }
 
-  static buildGS1PK(participantId: string): string {
+  static buildGSI1PK(participantId: string): string {
     return `USER_ID#${participantId}`;
   }
 
-  static buildGS1SK(lastMessageDate: number): string {
+  static buildGSI1SK(lastMessageDate: number): string {
     return `LAST_MESSAGE_DATE#${lastMessageDate}`;
+  }
+
+  static buildGSI2PK(id: string): string {
+    return `CHAT#${id}`;
+  }
+
+  static buildGSI2SK(lastMessageDate: number): string {
+    return `LAST_MESSAGE_DATE#${lastMessageDate}`;
+  }
+
+  toEntity(): Chat {
+    return new Chat({
+      id: this.id,
+      userId: this.userId,
+      participants: this.participants,
+      lastMessage: this.lastMessage,
+      lastMessageDate: this.lastMessageDate,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt
+    });
+  }
+
+  static fromEntity(
+    entity: Chat
+  ): ChatSchema {
+    return new ChatSchema({
+      id: entity.id,
+      userId: entity.userId,
+      participants: entity.participants,
+      lastMessage: entity.lastMessage || undefined,
+      lastMessageDate: entity.lastMessageDate || undefined,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt
+    });
+  }
+
+  static fromUnmarshalledItem(
+    item: Record<string, any>
+  ): ChatSchema {
+    return new ChatSchema({
+      id: item.id,
+      userId: item.userId,
+      participants: item.participants,
+      lastMessage: item.lastMessage,
+      lastMessageDate: item.lastMessageDate,
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt
+    });
   }
 }

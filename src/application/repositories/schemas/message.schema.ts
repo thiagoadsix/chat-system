@@ -19,9 +19,9 @@ export class MessageSchema
   readonly SK: string;
 
   /** USER#{sender} */
-  readonly GS1PK: string;
+  readonly GSI1PK: string;
   /** CHAT#{id} */
-  readonly GS1SK: string;
+  readonly GSI1SK: string;
 
   id: number;
   chatId: string;
@@ -47,10 +47,10 @@ export class MessageSchema
       this.id
     );
 
-    this.GS1PK = MessageSchema.buildGS1PK(
+    this.GSI1PK = MessageSchema.buildGSI1PK(
       this.sender
     );
-    this.GS1SK = MessageSchema.buildGS1SK(
+    this.GSI1SK = MessageSchema.buildGSI1SK(
       this.chatId
     )
   }
@@ -103,11 +103,11 @@ export class MessageSchema
     return `MESSAGE#${id}`;
   }
 
-  static buildGS1PK(userId: string): string {
+  static buildGSI1PK(userId: string): string {
     return `USER#${userId}`;
   }
 
-  static buildGS1SK(chatId: string): string {
+  static buildGSI1SK(chatId: string): string {
     return `CHAT#${chatId}`;
   }
 }

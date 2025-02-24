@@ -1,11 +1,13 @@
 import { RabbitMQClient } from "@application/utils/clients/rabbit-mq.client";
 import { ChatMessageRepository } from "@application/repositories/chat-message.repository";
 import { Message } from "@domain/entities";
+import { ChatRepository } from "@application/repositories/chat.repository";
 
 export class ChatMessageProcessor {
   constructor(
     private readonly rabbitMQClient: RabbitMQClient,
-    private readonly chatMessageRepository: ChatMessageRepository
+    private readonly chatMessageRepository: ChatMessageRepository,
+    private readonly chatRepository: ChatRepository
   ) {}
 
   async processMessage(action: string): Promise<void> {
@@ -15,6 +17,7 @@ export class ChatMessageProcessor {
       switch (action) {
         case 'send':
           await this.chatMessageRepository.save(message.message);
+          await this.chatRepository.updateLastMessage(message.message);
           break;
         case 'delete':
           await this.chatMessageRepository.delete({
