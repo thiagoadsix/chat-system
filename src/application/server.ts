@@ -1,6 +1,6 @@
-import env from '@main/config/env'
-import app from '@main/config/app'
-import { setupMessageProcessing } from '@main/config/message-processor';
+import env from '@application/config/env'
+import app from '@application/config/app'
+import { setupMessageProcessing } from '@application/config/message-processor';
 
 import { RabbitMQClient } from '@application/utils/clients/rabbit-mq.client';
 

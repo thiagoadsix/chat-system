@@ -6,7 +6,6 @@
       "@mocks/*": ["__tests__/mocks/*"],
       "@application/*": ["src/application/*"],
       "@domain/*": ["src/domain/*"],
-      "@main/*": ["src/main/*"],
       "@presentation/*": ["src/presentation/*"]
     },
     "plugins": [

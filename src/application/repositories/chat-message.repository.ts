@@ -1,7 +1,7 @@
 import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, GetItemCommand, GetItemCommandInput, PutItemCommand, PutItemCommandInput, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
-import env from "@main/config/env";
+import env from "@application/config/env";
 import { DeleteMessage, FindByIdMessage, SaveMessage, UpdateMessage } from "@domain/gateways/repositories/message";
 
 import { MessageSchema } from "./schemas/message.schema";

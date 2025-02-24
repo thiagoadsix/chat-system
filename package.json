@@ -16,10 +16,10 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "init": "ts-patch install -s",
-    "start": "node dist/main/server.js",
+    "start": "node dist/application/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json && tsc-alias",
-    "dev": "concurrently \"tsc --watch\" \"tsc-alias -w\" \"nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js\"",
-    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "dev": "concurrently \"tsc --watch\" \"tsc-alias -w\" \"nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/application/server.js\"",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/application/server.js",
     "up": "docker-compose up",
     "down": "docker-compose down",
     "test": "vitest",

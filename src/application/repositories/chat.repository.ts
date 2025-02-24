@@ -1,7 +1,7 @@
 import { DynamoDBClient, BatchWriteItemCommand, UpdateItemCommand, QueryCommand, QueryCommandOutput, AttributeValue } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
-import env from "@main/config/env";
+import env from "@application/config/env";
 
 import { SaveChat, UpdateLastMessage } from "@domain/gateways/repositories/chat";
 import { Message } from "@domain/entities/message.entity";

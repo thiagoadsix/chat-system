@@ -1,7 +1,7 @@
 import type { DynamoDBClientConfig } from "@aws-sdk/client-dynamodb";
 import { DynamoDBClient as AWSDynamoDBClient, DynamoDB } from "@aws-sdk/client-dynamodb";
 
-import env from "@main/config/env";
+import env from "@application/config/env";
 
 export class DynamoDBClient {
   private client: AWSDynamoDBClient;
