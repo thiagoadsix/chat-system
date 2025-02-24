@@ -31,6 +31,8 @@ export default defineConfig({
       reportOnFailure: true,
       enabled: true,
       exclude: [
+        "src/application/config/app.ts",
+        "src/application/server.ts",
         "src/**/*.mock.ts",
         "src/**/index.ts",
         "node_modules/**",
