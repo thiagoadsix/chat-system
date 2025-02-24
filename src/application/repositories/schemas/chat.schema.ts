@@ -92,7 +92,7 @@ export class ChatSchema {
   ): ChatSchema {
     return new ChatSchema({
       id: entity.id,
-      userId: entity.userId,
+      userId: entity.userId || "",
       participants: entity.participants,
       lastMessage: entity.lastMessage || undefined,
       lastMessageDate: entity.lastMessageDate || undefined,
