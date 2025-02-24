@@ -11,7 +11,7 @@ export default defineConfig({
     reporters: ["default", "hanging-process"],
     logHeapUsage: true,
     name: "chat-service",
-    include: ["./src/**/*.test.ts"],
+    include: ["./__tests__/**/*.test.ts"],
     coverage: {
       ignoreEmptyLines: true,
       thresholds: {

@@ -1,18 +1,22 @@
 {
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "lib": [
+      "es2022"
+    ],
     "module": "CommonJS",
-    "target": "ES2022",
+    "target": "es2022",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "sourceMap": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "types": [
       "vitest/globals"
     ]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["node_modules"],
   "ts-node": {
     "transpileOnly": true,
