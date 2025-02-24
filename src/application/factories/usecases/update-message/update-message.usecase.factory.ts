@@ -5,7 +5,8 @@ import { ChatMessageRepository } from "@application/repositories/chat-message.re
 import { DynamoDBClient } from "@application/utils/clients/dynamo-db.client";
 
 export const updateMessageUsecaseFactory = (): UpdateMessageUsecase => {
+  const dynamoDBClient = new DynamoDBClient().getClient();
   const broker = new RabbitMQBroker(new RabbitMQClient());
-  const messageRepository = new ChatMessageRepository(new DynamoDBClient().getClient());
+  const messageRepository = new ChatMessageRepository(dynamoDBClient);
   return new UpdateMessageUsecase(broker, messageRepository);
 };
