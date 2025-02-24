@@ -1,4 +1,4 @@
-import { ChatMessage } from '@domain/entities/chat-message.entity';
+import { Message } from '@domain/entities/message.entity';
 
 export interface MessageBroker {
   publish(event: MessageBroker.Input): Promise<void>;
@@ -7,6 +7,6 @@ export interface MessageBroker {
 export namespace MessageBroker {
   export type Input = {
     action: "send" | "update" | "delete" | "reply"
-    message: Partial<ChatMessage>
+    message: Partial<Message>
   };
 }
