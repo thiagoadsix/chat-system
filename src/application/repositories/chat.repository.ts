@@ -29,22 +29,27 @@ export class ChatRepository implements SaveChat, UpdateLastMessage {
       chatSchemas.push(chatSchema);
     }
 
-    const items = chatSchemas.map(schema => ({
-      PutRequest: {
-        Item: marshall(schema, {
-          convertClassInstanceToMap: true,
-          removeUndefinedValues: true,
-        })
-      }
-    }));
+    const chunkSize = 25;
+    for (let i = 0; i < chatSchemas.length; i += chunkSize) {
+      const chunk = chatSchemas.slice(i, i + chunkSize);
 
-    const command = new BatchWriteItemCommand({
-      RequestItems: {
-        [env.dynamoDBTableName]: items
-      }
-    });
+      const items = chunk.map(schema => ({
+        PutRequest: {
+          Item: marshall(schema, {
+            convertClassInstanceToMap: true,
+            removeUndefinedValues: true,
+          })
+        }
+      }));
 
-    await this.client.send(command);
+      const command = new BatchWriteItemCommand({
+        RequestItems: {
+          [env.dynamoDBTableName]: items
+        }
+      });
+
+      await this.client.send(command);
+    }
   }
 
   async updateLastMessage(message: Message): Promise<void> {

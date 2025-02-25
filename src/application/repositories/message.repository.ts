@@ -7,7 +7,7 @@ import { DeleteMessage, FindByIdMessage, SaveMessage, UpdateMessage } from "@dom
 import { MessageSchema } from "./schemas/message.schema";
 import { Message } from "@domain/entities";
 
-export class ChatMessageRepository implements SaveMessage, DeleteMessage, UpdateMessage, FindByIdMessage {
+export class MessageRepository implements SaveMessage, DeleteMessage, UpdateMessage, FindByIdMessage {
   constructor(
     private readonly client: DynamoDBClient,
   ) {}

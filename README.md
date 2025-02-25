@@ -8,6 +8,8 @@ This project aims to create an API for a chat system with the following features
 - [x] 🗑️ Delete messages
 - [x] 📝 Edit messages
 - [x] ↩️ Reply to messages
+
+#### Extra Features
 - [x] 💬 Create chat
 - [x] 🔑 Sign In
 - [x] 🆕 Sign Up

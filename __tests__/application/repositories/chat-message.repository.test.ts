@@ -6,18 +6,18 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { Message } from "@domain/entities";
 
 import env from "@application/config/env";
-import { ChatMessageRepository } from "@application/repositories/chat-message.repository";
+import { MessageRepository } from "@application/repositories/message.repository";
 import { MessageSchema } from "@application/repositories/schemas/message.schema";
 
 env.dynamoDBTableName = "TestTable";
 const ddbMock = mockClient(DynamoDBClient);
 
-describe("ChatMessageRepository", () => {
-  let repository: ChatMessageRepository;
+describe("MessageRepository", () => {
+  let repository: MessageRepository;
 
   beforeEach(() => {
     ddbMock.reset();
-    repository = new ChatMessageRepository(new DynamoDBClient({ region: "us-east-1" }));
+    repository = new MessageRepository(new DynamoDBClient({ region: "us-east-1" }));
   });
 
   afterEach(() => {

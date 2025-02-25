@@ -28,6 +28,8 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    depends_on:
+      - dynamodb
 
   dynamodb:
     image: amazon/dynamodb-local
