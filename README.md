@@ -13,7 +13,7 @@ This project aims to create an API for a chat system with the following features
 - [x] 🆕 Sign Up
 
 ## ⚙️ How It Works
-When you create a chat, you can add as many users as you want – no limits here! Behind the scenes, we automatically generate a unique chat for all invited users, ensuring that everyone gets the same reference. This means everyone shares the same conversation thread effortlessly.
+When you create a chat, you can add as many users as you want – no limits here! Behind the scenes, we automatically generate a unique chat for all invited users, ensuring that everyone gets the same reference. This means everyone shares the same conversation thread.
 
 Sending messages is super simple. When you post a message to a specific chat, it's stored right in our database under that chat's unique ID. And if you ever want to delete or update your message, just go ahead – our API makes it a breeze to manage your messages. Want to reply to someone? You got it!
 
@@ -100,3 +100,29 @@ npm test
 - [Vitest](https://vitest.dev/) - Testing framework
 - [DynamoDB](https://aws.amazon.com/dynamodb/) - NoSQL database
 - [RabbitMQ](https://www.rabbitmq.com/) - Message broker
+
+## Test Coverage
+
+Our test suite ensures that all functionalities of the Chat System API are thoroughly tested and verified. We have achieved 100% coverage across all files, which means every statement, branch, function, and line of code is tested. This high level of coverage helps us maintain code quality and reliability, ensuring that any changes or new features do not introduce unexpected issues.
+
+### Test Summary
+```
+Test Files  33 passed (33)  
+Tests       74 passed (74)  
+Start at    22:18:37  
+Duration    1.66s (transform 951ms, setup 421ms, collect 2.71s, tests 135ms, environment 5ms, prepare 2.49s)
+```
+
+### Coverage Report
+
+The following table provides a detailed breakdown of our test coverage:
+
+```
+% Coverage report from v8
+----------------------------------------------------------|---------|----------|---------|---------|-------------------
+File                                                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------------------------------------------------|---------|----------|---------|---------|-------------------
+All files                                                 |     100 |      100 |     100 |     100 |                   
+```
+
+Achieving full test coverage is a testament to our commitment to delivering a robust and error-free chat system. We continuously run our test suite to catch any regressions early and ensure that our API remains stable and performant.
