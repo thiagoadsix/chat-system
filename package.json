@@ -33,10 +33,14 @@
     "@aws-sdk/util-dynamodb": "^3.751.0",
     "@fastify/autoload": "^6.1.0",
     "@fastify/jwt": "^9.0.4",
+    "@fastify/swagger": "^9.4.2",
+    "@fastify/swagger-ui": "^5.2.2",
     "amqplib": "^0.10.5",
     "bcrypt": "^5.1.1",
     "fastify": "^5.2.1",
-    "nodemon": "^3.1.9"
+    "fastify-type-provider-zod": "^4.0.2",
+    "nodemon": "^3.1.9",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.6",

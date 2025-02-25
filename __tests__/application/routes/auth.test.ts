@@ -12,7 +12,21 @@ describe('Auth Routes Registration', () => {
     await registerAuthRoutes(fakeApp)
 
     expect(postMock).toHaveBeenCalledTimes(2)
-    expect(postMock).toHaveBeenNthCalledWith(1, '/auth/sign-up', expect.any(Function))
-    expect(postMock).toHaveBeenNthCalledWith(2, '/auth/sign-in', expect.any(Function))
+    expect(postMock).toHaveBeenNthCalledWith(
+      1,
+      '/auth/sign-up',
+      expect.objectContaining({
+        schema: expect.any(Object),
+      }),
+      expect.any(Function)
+    )
+    expect(postMock).toHaveBeenNthCalledWith(
+      2,
+      '/auth/sign-in',
+      expect.objectContaining({
+        schema: expect.any(Object),
+      }),
+      expect.any(Function)
+    )
   })
 })
