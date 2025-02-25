@@ -61,6 +61,11 @@ To run with success, you need to run this command:
 npm run init
 ```
 
+Give permissions to the scripts:
+```bash
+chmod +x local/scripts/create-chatmessages-table.sh
+```
+
 And then, you need to create the DynamoDB table:
 ```bash
 npm run create-local-dynamodb-table
