@@ -1,4 +1,5 @@
 import {
+  NotFoundError,
   ServerError,
   UnauthorizedError
 } from '@presentation/errors'
@@ -32,4 +33,9 @@ export const unauthorized = (): HttpResponse => ({
 export const forbidden = (error: Error): HttpResponse => ({
   statusCode: 403,
   body: error
+})
+
+export const notFound = (message: string): HttpResponse => ({
+  statusCode: 404,
+  body: new NotFoundError(message)
 })

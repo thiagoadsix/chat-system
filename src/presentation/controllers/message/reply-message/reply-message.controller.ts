@@ -8,9 +8,9 @@ export class ReplyMessageController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { chatId, messageId } = httpRequest.params;
-    const { sender, content, replyTo } = httpRequest.body;
+    const { content, replyTo } = httpRequest.body;
 
-    const result = await this.replyMessageUsecase.execute({ id: Number(messageId), chatId, sender, content, replyTo });
+    const result = await this.replyMessageUsecase.execute({ id: Number(messageId), chatId, sender: httpRequest.userId!, content, replyTo });
 
     return ok(result);
   }

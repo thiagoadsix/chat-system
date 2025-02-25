@@ -7,6 +7,8 @@ export const adaptRoute = (controller: Controller) => {
     const httpRequest: HttpRequest = {
       body: req.body,
       params: req.params,
+      jwtSign: res.jwtSign.bind(res),
+      userId: req.user?.id
     }
 
     const httpResponse = await controller.handle(httpRequest)

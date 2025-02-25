@@ -8,9 +8,8 @@ export class DeleteMessageController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { chatId, messageId } = httpRequest.params;
-    const { sender } = httpRequest.body;
 
-    const result = await this.deleteMessageUsecase.execute({ id: Number(messageId), chatId, sender });
+    const result = await this.deleteMessageUsecase.execute({ id: Number(messageId), chatId, sender: httpRequest.userId! });
 
     return ok(result);
   }

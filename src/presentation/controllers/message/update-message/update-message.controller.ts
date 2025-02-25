@@ -8,9 +8,9 @@ export class UpdateMessageController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { chatId, messageId } = httpRequest.params;
-    const { content, sender } = httpRequest.body;
+    const { content } = httpRequest.body;
 
-    const result = await this.updateMessageUsecase.execute({ id: Number(messageId), content, sender, chatId });
+    const result = await this.updateMessageUsecase.execute({ id: Number(messageId), content, sender: httpRequest.userId!, chatId });
 
     return ok(result);
   }
