@@ -100,6 +100,8 @@ npm test
 - [Vitest](https://vitest.dev/) - Testing framework
 - [DynamoDB](https://aws.amazon.com/dynamodb/) - NoSQL database
 - [RabbitMQ](https://www.rabbitmq.com/) - Message broker
+- [Zod](https://zod.dev/) - Schema validation
+- [Swagger](https://swagger.io/) - API documentation
 
 ## Test Coverage
 
