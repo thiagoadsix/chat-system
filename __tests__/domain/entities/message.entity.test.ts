@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { Message } from "../../../src/domain/entities/message.entity";
+import { Message } from "@domain/entities/message.entity";
 
 describe("Message", () => {
   it("should be able to create a message", () => {

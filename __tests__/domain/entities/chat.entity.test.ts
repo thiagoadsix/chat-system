@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { Chat } from "../../../src/domain/entities/chat.entity";
+import { Chat } from "@domain/entities/chat.entity";
 
 describe("Chat", () => {
   it("should create a chat", () => {
