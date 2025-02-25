@@ -61,6 +61,11 @@ To run with success, you need to run this command:
 npm run init
 ```
 
+And then, you need to create the DynamoDB table:
+```bash
+npm run create-local-dynamodb-table
+```
+
 #### Option 1: Running with Docker
 
 To start the API server using Docker, run the following command:

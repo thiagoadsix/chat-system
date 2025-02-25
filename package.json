@@ -26,7 +26,8 @@
     "test:cov": "npm run test --coverage=true --run",
     "test:ci": "npm run test --reporter=json --coverage --outputFile=report.json --run --reporter=verbose",
     "test:dev": "npm run test --watch",
-    "test:ui": "npm run test --ui --watch"
+    "test:ui": "npm run test --ui --watch",
+    "create-local-dynamodb-table": "bash ./local/scripts/create-chatmessages-table.sh"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.751.0",
