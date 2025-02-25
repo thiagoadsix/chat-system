@@ -12,22 +12,25 @@ describe('adaptRoute', () => {
         body: { success: true }
       } as HttpResponse)
     }
-
     const req = {
       body: { foo: 'bar' },
-      params: { id: '123' }
+      params: { id: '123' },
+      user: { id: 'user123' }
     } as FastifyRequest
 
+    const jwtSign = vi.fn()
     const send = vi.fn()
     const status = vi.fn().mockReturnValue({ send })
-    const res = { status } as unknown as FastifyReply
+    const res = { status, jwtSign } as unknown as FastifyReply
 
     const routeHandler = adaptRoute(fakeController)
     await routeHandler(req, res)
 
     expect(fakeController.handle).toHaveBeenCalledWith({
       body: req.body,
-      params: req.params
+      params: req.params,
+      jwtSign: expect.any(Function),
+      userId: req.user?.id
     })
     expect(status).toHaveBeenCalledWith(200)
     expect(send).toHaveBeenCalledWith({ success: true })
@@ -42,22 +45,25 @@ describe('adaptRoute', () => {
         body: fakeError
       } as HttpResponse)
     }
-
     const req = {
       body: { foo: 'bar' },
-      params: { id: '123' }
+      params: { id: '123' },
+      user: { id: 'user123' }
     } as FastifyRequest
 
+    const jwtSign = vi.fn()
     const send = vi.fn()
     const status = vi.fn().mockReturnValue({ send })
-    const res = { status } as unknown as FastifyReply
+    const res = { status, jwtSign } as unknown as FastifyReply
 
     const routeHandler = adaptRoute(fakeController)
     await routeHandler(req, res)
 
     expect(fakeController.handle).toHaveBeenCalledWith({
       body: req.body,
-      params: req.params
+      params: req.params,
+      jwtSign: expect.any(Function),
+      userId: req.user?.id
     })
     expect(status).toHaveBeenCalledWith(400)
     expect(send).toHaveBeenCalledWith({
