@@ -84,7 +84,7 @@ This will build the TypeScript code and start the API server in a Docker contain
 
 To start the API server locally without Docker, follow these steps:
 ```
-Remember, you will need to have a DynamoDB and RabbitMQ running, and of course, you will need to create the DynamoDB table, follow these steps:
+Remember, you will need to have a DynamoDB and RabbitMQ running.
 ```
 
 1. Build the TypeScript code:
