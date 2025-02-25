@@ -83,16 +83,29 @@ This will build the TypeScript code and start the API server in a Docker contain
 #### Option 2: Running locally
 
 To start the API server locally without Docker, follow these steps:
+```
+Remember, you will need to have a DynamoDB and RabbitMQ running, and of course, you will need to create the DynamoDB table, follow these steps:
+```
 
-1. Build the TypeScript code:
-   ```bash
-   npm run build
-   ```
+1. Give permissions to the scripts:
+```bash
+chmod +x local/scripts/create-chatmessages-table.sh
+```
 
-2. Start the API server:
-   ```bash
-   npm start
-   ```
+2. Create the DynamoDB table:
+```bash
+npm run create-local-dynamodb-table
+```
+
+3. Build the TypeScript code:
+```bash
+npm run build
+```
+
+4. Start the API server:
+```bash
+npm start
+```
 
 The API server will be running at `http://localhost:3000`.
 
